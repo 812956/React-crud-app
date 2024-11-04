@@ -38,17 +38,35 @@ exports.createUser = async (req, res) => {
   }
 };
 
+// exports.updateUser = async (req, res) => {
+//   console.log('helllo world',req.body)
+//   const { username, roles } = req.body;
+//   const { id } = req.params;
+
+//   try {
+//     const updatedUser = await User.findByIdAndUpdate(id, { username, roles }, { new: true });
+//     res.status(200).json(updatedUser);
+//   } catch (err) {
+//     res.status(500).send({ message: err.message });
+//   }
+// };
+
 exports.updateUser = async (req, res) => {
-  const { username, role } = req.body;
+  const { username, roles } = req.body;
   const { id } = req.params;
 
   try {
-    const updatedUser = await User.findByIdAndUpdate(id, { username, roles: [role] }, { new: true });
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { $set: { username, roles } }, // Explicitly setting the roles field
+      { new: true }
+    );
     res.status(200).json(updatedUser);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 };
+
 
 exports.deleteUser = async (req, res) => {
   const { id } = req.params;

@@ -119,6 +119,7 @@ const UserManagement = () => {
   };
 
   const handleEdit = async () => {
+    console.log(editingUser)
     await UserService.updateUser(editingUser._id, editingUser);
     setEditingUser(null);
     loadUsers();
